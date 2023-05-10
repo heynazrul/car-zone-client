@@ -51,6 +51,8 @@ export default {
           warning: '#FBBD23',
 
           error: '#F87272',
+
+          'base-200': '#777'
         },
       },
     ],

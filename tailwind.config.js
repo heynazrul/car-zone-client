@@ -52,7 +52,7 @@ export default {
 
           error: '#F87272',
 
-          'base-200': '#777'
+          // 'base-200': '#fff',
         },
       },
     ],

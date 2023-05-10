@@ -12,9 +12,9 @@ const Footer = () => {
               alt=""
               className="h-12 lg:h-full"
             />
-            <p className="text-center text-xl  font-bold">Car Zone</p>
+            <p className="text-center text-xl font-bold">Car Zone</p>
           </Link>
-          <p>
+          <p className='text-secondary'>
             ACME Industries Ltd.
             <br />
             Providing reliable tech since 1992

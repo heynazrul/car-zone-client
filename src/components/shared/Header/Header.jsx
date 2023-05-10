@@ -1,9 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../assets/logo.svg';
+import { HiXMark } from 'react-icons/hi2';
 
 const Header = () => {
+  const navItems = [
+    {
+      title: 'Home',
+      to: '/',
+    },
+    {
+      title: 'About',
+      to: '/about',
+    },
+    {
+      title: 'About',
+      to: '/about',
+    },
+  ];
   const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdown = useRef();
 
   const handleToggle = (e) => {
     if (e.target.checked) {
@@ -19,16 +36,26 @@ const Header = () => {
     document.querySelector('html').setAttribute('data-theme', localTheme);
   }, [theme]);
 
+  const handleMenuOpen = () => {
+    dropdown.current.classList.toggle('dropdown-open');
+    document.activeElement.blur();
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="navbar">
       <div className="navbar-start flex justify-between lg:justify-start">
-        <div className="dropdown">
+        <div
+          className="dropdown"
+          ref={dropdown}>
           <label
             tabIndex={0}
-            className="btn-ghost btn lg:hidden">
+            className={`btn-ghost btn lg:hidden `}
+            onClick={handleMenuOpen}>
+            {/* Mobile menu hamburger icon */}
+            <HiXMark className={`${isOpen ? 'text-lg ' : 'hidden'}`}></HiXMark>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className={`${isOpen ? 'hidden' : 'h-5 w-5'}`}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor">
@@ -42,34 +69,12 @@ const Header = () => {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li tabIndex={0}>
-              <a className="justify-between">
-                Parent
-                <svg
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24">
-                  <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                </svg>
-              </a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            className={`dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow`}>
+            {navItems.map((item, idx) => (
+              <li key={idx}>
+                <Link to={item.to}>{item.title}</Link>
+              </li>
+            ))}
           </ul>
         </div>
         <Link
@@ -78,44 +83,22 @@ const Header = () => {
           <img
             src={Logo}
             alt=""
-            className='h-12 lg:h-full'
+            className="h-12 lg:h-full"
           />
-          <p className='text-center text-xl  font-bold'>Car Zone</p>
+          <p className="text-center text-xl  font-bold">Car Zone</p>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li tabIndex={0}>
-            <a>
-              Parent
-              <svg
-                className="fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24">
-                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-              </svg>
-            </a>
-            <ul className="p-2">
-              <li>
-                <a>Submenu 1</a>
-              </li>
-              <li>
-                <a>Submenu 2</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
+          {navItems.map((item, idx) => (
+            <li key={idx}>
+              <Link to={item.to}>{item.title}</Link>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="navbar-end space-x-3">
-        <a className="btn bg-primary">Get started</a>
+        <a className="btn bg-primary ">Get started</a>
         <div>
           <label className="swap-rotate swap">
             <input

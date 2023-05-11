@@ -73,7 +73,7 @@ const Header = () => {
             <input
               onChange={handleMenuOpen}
               type="checkbox"
-              checked={isOpen ? false : true}
+              checked={isOpen ? true : false}
             />
             {/* Mobile menu hamburger icon */}
             {/* <HiXMark className={`${isOpen ? 'text-lg ' : 'hidden'}`}></HiXMark>

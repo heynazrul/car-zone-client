@@ -1,12 +1,31 @@
+import { useContext } from 'react';
 import login from '../../assets/images/login/login.svg';
 import { FaFacebookF, FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
 
+    const {createUser} = useContext(AuthContext)
+
+
     const handleRegister = (event) => {
       event.preventDefault();
+      const form = event.target;
+      const name = form.name.value
+      const email = form.email.value;
+      const password = form.password.value
+
+      createUser(email, password)
+      .then(result => {
+        const user = result.user
+        console.log(user);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+     
     };
 
 
@@ -26,6 +45,17 @@ const Register = () => {
             <h1 className="mb-12 text-center text-3xl font-bold lg:text-5xl">Register</h1>
 
             <form onSubmit={handleRegister}>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="name"
+                  name="name"
+                  className="input-bordered input"
+                />
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>

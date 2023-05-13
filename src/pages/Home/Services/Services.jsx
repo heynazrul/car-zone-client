@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 const Services = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch('services.json')
+    fetch('http://localhost:5000/services')
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
 
   return (
-    <div className="mt-24 flex flex-col items-center">
+    <div className="mt-16 flex flex-col items-center">
       <div className="mx-auto w-1/2 space-y-5  text-center">
         <h2 className="text-xl font-bold text-primary">Service</h2>
         <h3 className="text-4xl font-bold lg:text-5xl">Our Service Area</h3>

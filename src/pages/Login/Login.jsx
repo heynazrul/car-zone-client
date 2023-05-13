@@ -6,23 +6,32 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
 
-  const {signIn} = useContext(AuthContext)
-  
   const handleLogin = (event) => {
-     event.preventDefault();
-     const form = event.target;
-     const email = form.email.value;
-     const password = form.password.value;
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
-     signIn(email, password)
-       .then((result) => {
-         const user = result.user;
-         console.log(user);
-       })
-       .catch((error) => {
-         console.log(error);
-       });
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        alert('login Success');
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div className="hero min-h-screen bg-base-100">
@@ -47,7 +56,7 @@ const Login = () => {
                 <input
                   type="text"
                   placeholder="email"
-                  name='email'
+                  name="email"
                   className="input-bordered input"
                 />
               </div>
@@ -58,7 +67,7 @@ const Login = () => {
                 <input
                   type="text"
                   placeholder="password"
-                  name='password'
+                  name="password"
                   className="input-bordered input"
                 />
                 <label className="label">
@@ -90,13 +99,22 @@ const Login = () => {
                   className="text-gray-900  "
                   size={24}></FaGithub>
               </button>
-              <button className="btn-circle btn border-none bg-gray-200 hover:bg-gray-300 ">
+              <button
+                onClick={handleGoogleLogin}
+                className="btn-circle btn border-none bg-gray-200 hover:bg-gray-300 ">
                 <FcGoogle
                   className="text-blue-600"
                   size={24}></FcGoogle>
               </button>
             </div>
-            <p className="mt-6 text-center">New to Car Zone? <Link to={'/register'} className='text-primary font-bold'>Register</Link> </p>
+            <p className="mt-6 text-center">
+              New to Car Zone?{' '}
+              <Link
+                to={'/register'}
+                className="font-bold text-primary">
+                Register
+              </Link>{' '}
+            </p>
           </div>
         </div>
       </div>

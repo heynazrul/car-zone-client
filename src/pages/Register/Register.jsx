@@ -2,32 +2,30 @@ import { useContext } from 'react';
 import login from '../../assets/images/login/login.svg';
 import { FaFacebookF, FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
+  const { createUser, logOut, signIn } = useContext(AuthContext);
 
-    const {createUser} = useContext(AuthContext)
+  const handleRegister = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
 
-
-    const handleRegister = (event) => {
-      event.preventDefault();
-      const form = event.target;
-      const name = form.name.value
-      const email = form.email.value;
-      const password = form.password.value
-
-      createUser(email, password)
-      .then(result => {
-        const user = result.user
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
         console.log(user);
+        logOut();
+        signIn(email, password);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
-      })
-     
-    };
-
+      });
+  };
 
   return (
     <div className="hero min-h-screen bg-base-100">

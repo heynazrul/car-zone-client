@@ -1,25 +1,65 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import PageBanner from '../../components/shared/PageBanner/PageBanner';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Checkout = () => {
   const service = useLoaderData();
-  const { _id, title, price } = service;
+  const { _id, title, price, img } = service;
+  console.log(service);
+
+  const { user } = useContext(AuthContext);
+
+  const handleAppointment = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const date = form.date.value;
+    const email = form.email.value;
+    const notes = form.notes.value;
+
+    const appointments = {
+      customerName: name,
+      email,
+      date,
+      img,
+      service: title,
+      service_id: _id,
+      price: price,
+      notes: notes,
+    };
+
+    fetch('http://localhost:5000/appointments', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(appointments)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if(data.insertedId){
+            alert('Appointment Booked!')
+        }
+      });
+    
+  };
 
   return (
     <div>
       <PageBanner></PageBanner>
 
-      <form>
+      <form onSubmit={handleAppointment}>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Service Name</span>
+              <span className="label-text">Name</span>
             </label>
             <input
               type="text"
-              placeholder="email"
+              placeholder="Your Name"
               name="name"
+              defaultValue={user?.displayname}
               className="input-bordered input"
             />
           </div>
@@ -41,6 +81,7 @@ const Checkout = () => {
               type="email"
               placeholder="Email"
               name="email"
+              defaultValue={user?.email}
               className="input-bordered input"
             />
           </div>
@@ -50,18 +91,19 @@ const Checkout = () => {
             </label>
             <input
               type="text"
+              readOnly
               defaultValue={'$' + price}
               className="input-bordered input"
             />
           </div>
-          <div className="form-control">
+          <div className="form-control col-span-2">
             <label className="label">
               <span className="label-text">Notes</span>
             </label>
             <textarea
-
+              placeholder="write your instructions"
               type="text"
-              defaultValue={'$' + price}
+              name="notes"
               className="input-bordered input"
             />
           </div>

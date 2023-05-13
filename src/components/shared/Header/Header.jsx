@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Logo from '../../../assets/logo.svg';
-import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai';
+import { AiOutlineLogin, AiOutlineSearch } from 'react-icons/ai';
+import { BiLogOut } from 'react-icons/bi';
+import { FaUserCircle } from 'react-icons/fa';
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const Header = () => {
   const navItems = [
@@ -26,6 +29,9 @@ const Header = () => {
       to: '/contact',
     },
   ];
+
+  const { user, logOut } = useContext(AuthContext);
+
   const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(true);
@@ -34,10 +40,10 @@ const Header = () => {
   const handleToggle = (e) => {
     if (e.target.checked) {
       setTheme('dark');
-      setHidden(false)
+      setHidden(false);
     } else {
       setTheme('light');
-      setHidden(true)
+      setHidden(true);
     }
     // setHidden(!hidden);
   };
@@ -45,11 +51,11 @@ const Header = () => {
   useEffect(() => {
     localStorage.setItem('theme', theme);
     const localTheme = localStorage.getItem('theme');
-    if(localTheme ==='dark'){
-      setHidden(false)
+    if (localTheme === 'dark') {
+      setHidden(false);
     }
-    if(localTheme==='light'){
-      setHidden(true)
+    if (localTheme === 'light') {
+      setHidden(true);
     }
     document.querySelector('html').setAttribute('data-theme', localTheme);
   }, [theme]);
@@ -151,8 +157,33 @@ const Header = () => {
       <div className="navbar-end space-x-6">
         {/* Toggle theme button */}
         <div className="flex items-center space-x-4">
-          <AiOutlineShopping className="text-2xl" />
-          <AiOutlineSearch className="text-2xl" />
+          {user ? (
+            <div className="flex items-center gap-2">
+              {user.photoURL ? (
+                <img
+                  className="h-6 rounded-full"
+                  src={user.photoURL}
+                  alt=""
+                />
+              ) : (
+                <FaUserCircle size={24}></FaUserCircle>
+              )}
+              <BiLogOut
+                onClick={logOut}
+                className="text-2xl hover:cursor-pointer"
+              />
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <AiOutlineLogin className="text-2xl" />
+              <NavLink
+                className="font-semibold"
+                to={'/login'}>
+                Login
+              </NavLink>
+            </div>
+          )}
+          {/* <AiOutlineSearch className="text-2xl" /> */}
           {/* theme button */}
           <div>
             <label className="swap-rotate swap flex items-center">

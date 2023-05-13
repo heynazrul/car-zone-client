@@ -20,7 +20,7 @@ const ServiceCard = ({service}) => {
             <p className="text-lg font-semibold text-primary">
               Price: <span>{price}</span>
             </p>
-            <Link to={`/checkout/${_id}`} className="btn-link btn p-0">
+            <Link to={`/service-details/${_id}`} className="btn-link btn p-0">
               <HiOutlineArrowRight size={24}></HiOutlineArrowRight>
             </Link>
           </div>

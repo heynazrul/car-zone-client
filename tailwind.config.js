@@ -29,6 +29,8 @@ export default {
           warning: '#E1820E',
 
           error: '#F9063F',
+
+          // 'base-second': '#F3F3F3',
         },
       },
 
@@ -51,6 +53,8 @@ export default {
           warning: '#FBBD23',
 
           error: '#F87272',
+
+          // 'base-second': '#F3F3F3',
 
           // 'base-200': '#fff',
         },

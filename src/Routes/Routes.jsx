@@ -5,6 +5,8 @@ import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
 import Checkout from '../pages/Checkout/Checkout';
 import ServiceDetails from '../pages/ServiceDetails/ServiceDetails';
+import Appointments from '../pages/Appointments/Appointments';
+import PrivateRoutes from './PrivateRoutes';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '/appointments',
+        element: (
+          <PrivateRoutes>
+            <Appointments />
+          </PrivateRoutes>
+        ),
       },
       {
         path: 'service-details/:id',

@@ -160,18 +160,38 @@ const Header = () => {
           {user ? (
             <div className="flex items-center gap-2">
               {user.photoURL ? (
-                <img
-                  className="h-6 rounded-full"
-                  src={user.photoURL}
-                  alt=""
-                />
+                <>
+                  <div className="dropdown dropdown-end dropdown-hover ">
+                    <img
+                      className="h-8 rounded-full hover:cursor-pointer "
+                      src={user.photoURL}
+                      alt=""
+                    />
+                    {/* <label
+                      tabIndex={0}
+                      className="btn m-1">
+                      Hover
+                    </label> */}
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu rounded-box w-52 bg-base-200 p-2 shadow">
+                      <li>
+                        <Link to={'/appointments'}>My Appointments</Link>
+                      </li>
+                      <li className="flex">
+                        <BiLogOut className="text-2xl hover:cursor-pointer" />
+                        <button onClick={logOut}>Sign Out</button>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               ) : (
                 <FaUserCircle size={24}></FaUserCircle>
               )}
-              <BiLogOut
+              {/* <BiLogOut
                 onClick={logOut}
                 className="text-2xl hover:cursor-pointer"
-              />
+              /> */}
             </div>
           ) : (
             <div className="flex items-center gap-2">

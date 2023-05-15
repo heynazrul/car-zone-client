@@ -1,8 +1,8 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 
-const AppointmentRow = ({ appointment, handleDelete }) => {
-  const { _id, img, customerName, email, date, service, price } = appointment;
+const AppointmentRow = ({ appointment, handleDelete, handleStatus }) => {
+  const { _id, img, customerName, email, date, service, price, status } = appointment;
 
   return (
     <tr>
@@ -49,7 +49,14 @@ const AppointmentRow = ({ appointment, handleDelete }) => {
         <p className="font-bold">{date}</p>
       </td>
       <th>
-        <button className="btn-ghost btn-xs btn">details</button>
+        {
+          status === 'confirm' ? <span className='btn-success btn btn-xs'>Confirmed</span> :
+          <button
+            onClick={() => handleStatus(_id)}
+            className="btn-warning btn-xs btn">
+            Pending
+          </button>
+        }
       </th>
     </tr>
   );

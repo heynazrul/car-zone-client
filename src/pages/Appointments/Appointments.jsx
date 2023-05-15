@@ -12,7 +12,7 @@ const Appointments = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => setAppointments(data));
-  }, []);
+  }, [url]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -41,6 +41,29 @@ const Appointments = () => {
     });
   };
 
+  const handleStatus = id => {
+    fetch(`http://localhost:5000/appointments/${id}`,{
+      method: "PATCH",
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({status: 'confirm'})
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      if(data.modifiedCount > 0){
+        // update state
+        const remaining = appointments.filter(appointment => appointment._id !== id)
+        const updated = appointments.find(appointment => appointment._id === id)
+        updated.status = 'confirm'
+
+        const newAppointments = [updated, ...remaining]
+        setAppointments(newAppointments)
+      }
+    })
+  }
+
   return (
     <div>
       <div className="w-full overflow-x-auto">
@@ -68,7 +91,8 @@ const Appointments = () => {
               <AppointmentRow
                 key={appointment._id}
                 appointment={appointment}
-                handleDelete={handleDelete}></AppointmentRow>
+                handleDelete={handleDelete}
+                handleStatus={handleStatus}></AppointmentRow>
             ))}
           </tbody>
         </table>

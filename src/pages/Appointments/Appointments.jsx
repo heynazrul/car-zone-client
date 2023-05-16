@@ -9,7 +9,7 @@ const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const navigate = useNavigate();
 
-  const url = `http://localhost:5000/appointments?email=${user?.email}`;
+  const url = `https://car-zone-server-three.vercel.app/appointments?email=${user?.email}`;
   useEffect(() => {
     fetch(url, {
       method: 'GET',
@@ -38,7 +38,7 @@ const Appointments = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/appointments/${id}`, {
+        fetch(`https://car-zone-server-three.vercel.app/appointments/${id}`, {
           method: 'DELETE',
         })
           .then((res) => res.json())
@@ -55,7 +55,7 @@ const Appointments = () => {
   };
 
   const handleStatus = (id) => {
-    fetch(`http://localhost:5000/appointments/${id}`, {
+    fetch(`https://car-zone-server-three.vercel.app/appointments/${id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',

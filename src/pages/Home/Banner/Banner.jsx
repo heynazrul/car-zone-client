@@ -43,16 +43,16 @@ const Banner = () => {
           </div>
         </div>
         <div className="absolute bottom-2 left-5 right-5 flex -translate-y-1/2 transform justify-end space-x-5 ">
-          <a
+          <div
             href="#slide5"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❮
-          </a>
-          <a
+          </div>
+          <div
             href="#slide2"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❯
-          </a>
+          </div>
         </div>
       </div>
       <div
@@ -90,16 +90,16 @@ const Banner = () => {
           </div>
         </div>
         <div className="absolute bottom-2 left-5 right-5 flex -translate-y-1/2 transform justify-end space-x-5 ">
-          <a
+          <div
             href="#slide1"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❮
-          </a>
-          <a
+          </div>
+          <div
             href="#slide3"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❯
-          </a>
+          </div>
         </div>
       </div>
       <div
@@ -137,16 +137,16 @@ const Banner = () => {
           </div>
         </div>
         <div className="absolute bottom-2 left-5 right-5 flex -translate-y-1/2 transform justify-end space-x-5 ">
-          <a
+          <div
             href="#slide2"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❮
-          </a>
-          <a
+          </div>
+          <div
             href="#slide4"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❯
-          </a>
+          </div>
         </div>
       </div>
       <div
@@ -184,16 +184,16 @@ const Banner = () => {
           </div>
         </div>
         <div className="absolute bottom-2 left-5 right-5 flex -translate-y-1/2 transform justify-end space-x-5 ">
-          <a
+          <div
             href="#slide3"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❮
-          </a>
-          <a
+          </div>
+          <div
             href="#slide5"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❯
-          </a>
+          </div>
         </div>
       </div>
       <div
@@ -231,16 +231,16 @@ const Banner = () => {
           </div>
         </div>
         <div className="absolute bottom-2 left-5 right-5 flex -translate-y-1/2 transform justify-end space-x-5 ">
-          <a
+          <div
             href="#slide4"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❮
-          </a>
-          <a
+          </div>
+          <div
             href="#slide1"
             className="btn-sm btn-circle btn bg-opacity-70 hover:btn-primary lg:btn-md">
             ❯
-          </a>
+          </div>
         </div>
       </div>
     </div>

@@ -44,12 +44,12 @@ const router = createBrowserRouter([
             <ServiceDetails />
           </PrivateRoutes>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/service-details/${params.id}`),
+        loader: ({ params }) => fetch(`https://car-zone-server-three.vercel.app/service-details/${params.id}`),
       },
       {
         path: '/checkout/:id',
         element: <Checkout />,
-        loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`),
+        loader: ({ params }) => fetch(`https://car-zone-server-three.vercel.app/services/${params.id}`),
       },
     ],
   },

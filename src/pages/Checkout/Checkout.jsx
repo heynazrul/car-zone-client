@@ -29,20 +29,19 @@ const Checkout = () => {
       notes: notes,
     };
 
-    fetch('http://localhost:5000/appointments', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(appointments)
+    fetch('https://car-zone-server-three.vercel.app/appointments', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(appointments),
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data.insertedId){
-            alert('Appointment Booked!')
+        if (data.insertedId) {
+          alert('Appointment Booked!');
         }
       });
-    
   };
 
   return (

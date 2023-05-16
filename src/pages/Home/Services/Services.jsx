@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Services = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5000/services')
+    fetch('https://car-zone-server-three.vercel.app/services')
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
@@ -27,8 +27,8 @@ const Services = () => {
             service={service}></ServiceCard>
         ))}
       </div>
-      <button className="btn-outline btn-primary btn rounded-none mt-12">
-        <Link  to={'/appointment'}>More Services</Link>
+      <button className="btn-outline btn-primary btn mt-12 rounded-none">
+        <Link to={'/appointment'}>More Services</Link>
       </button>
     </div>
   );

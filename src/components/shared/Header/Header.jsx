@@ -69,7 +69,7 @@ const Header = () => {
   const handleLogout = () => {
     logOut()
     .then(() => {
-      localStorage.removeItem('car-zone-access-token')
+      
     })
     .catch(err => console.log(err))
   };

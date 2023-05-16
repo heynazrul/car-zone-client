@@ -2,17 +2,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import AppointmentRow from './AppointmentRow';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Appointments = () => {
   const { user } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
+  const navigate = useNavigate();
 
   const url = `http://localhost:5000/appointments?email=${user?.email}`;
   useEffect(() => {
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('car-zone-access-token')}`,
+      },
+    })
       .then((res) => res.json())
-      .then((data) => setAppointments(data));
-  }, [url]);
+      .then((data) => {
+        if (!data.error) {
+          setAppointments(data);
+        } else {
+          navigate('/');
+        }
+      });
+  }, [url, navigate]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -41,28 +54,28 @@ const Appointments = () => {
     });
   };
 
-  const handleStatus = id => {
-    fetch(`http://localhost:5000/appointments/${id}`,{
-      method: "PATCH",
+  const handleStatus = (id) => {
+    fetch(`http://localhost:5000/appointments/${id}`, {
+      method: 'PATCH',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
-      body: JSON.stringify({status: 'confirm'})
+      body: JSON.stringify({ status: 'confirm' }),
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      if(data.modifiedCount > 0){
-        // update state
-        const remaining = appointments.filter(appointment => appointment._id !== id)
-        const updated = appointments.find(appointment => appointment._id === id)
-        updated.status = 'confirm'
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          // update state
+          const remaining = appointments.filter((appointment) => appointment._id !== id);
+          const updated = appointments.find((appointment) => appointment._id === id);
+          updated.status = 'confirm';
 
-        const newAppointments = [updated, ...remaining]
-        setAppointments(newAppointments)
-      }
-    })
-  }
+          const newAppointments = [updated, ...remaining];
+          setAppointments(newAppointments);
+        }
+      });
+  };
 
   return (
     <div>

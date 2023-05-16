@@ -66,7 +66,14 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
-  console.log(theme, hidden);
+  const handleLogout = () => {
+    logOut()
+    .then(() => {
+      localStorage.removeItem('car-zone-access-token')
+    })
+    .catch(err => console.log(err))
+  };
+
   return (
     <div className="navbar px-4">
       <div className="navbar-start flex justify-between lg:justify-start">
@@ -75,7 +82,7 @@ const Header = () => {
           ref={dropdown}>
           <label
             tabIndex={0}
-            className="swap-rotate swap lg:hidden">
+            className="swap swap-rotate lg:hidden">
             <input
               onChange={handleMenuOpen}
               type="checkbox"
@@ -180,7 +187,7 @@ const Header = () => {
                       </li>
                       <li className="flex">
                         <BiLogOut className="text-2xl hover:cursor-pointer" />
-                        <button onClick={logOut}>Sign Out</button>
+                        <button onClick={handleLogout}>Sign Out</button>
                       </li>
                     </ul>
                   </div>
@@ -194,14 +201,12 @@ const Header = () => {
               /> */}
             </div>
           ) : (
-            <div className="flex items-center gap-2">
+            <NavLink
+              className="flex items-center gap-2 font-semibold"
+              to={'/login'}>
               <AiOutlineLogin className="text-2xl" />
-              <NavLink
-                className="font-semibold"
-                to={'/login'}>
-                Login
-              </NavLink>
-            </div>
+              <span>Login</span>
+            </NavLink>
           )}
           {/* <AiOutlineSearch className="text-2xl" /> */}
           {/* theme button */}
